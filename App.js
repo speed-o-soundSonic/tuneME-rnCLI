@@ -5,6 +5,7 @@ import SearchScreen from './src/screens/SearchScreen';
 import AppPlaying from './src/screens/PlayingScreen';
 import AppNavigation from './src/navigation/AppNavigation';
 import {NavigationContainer} from '@react-navigation/native';
+import {Text, View, SafeAreaView} from 'react-native';
 
 // https://www.googleapis.com/youtube/v3/search?part=snippet&q=eros%20ramazzotti&type=video&key=AIzaSyBNrPNjDGE4NZstgOdUhPkqhxn7ZssBgPE
 
