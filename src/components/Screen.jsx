@@ -1,8 +1,8 @@
-import React from "react";
-import { View, StyleSheet, SafeAreaView } from "react-native";
-import Constants from "expo-constants";
+import React from 'react';
+import {View, StyleSheet, SafeAreaView} from 'react-native';
+import {Constants} from 'react-native-unimodules';
 
-const Screen = ({ children, style }) => {
+const Screen = ({children, style}) => {
   return (
     <SafeAreaView style={[styles.screen, style]}>
       <View style={style}>{children}</View>

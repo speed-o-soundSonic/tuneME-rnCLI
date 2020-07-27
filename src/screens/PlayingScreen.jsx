@@ -1,10 +1,11 @@
-import React from "react";
-import { View, StyleSheet, Text, Constants } from "react-native";
-import { WebView } from "react-native-webview";
+import React from 'react';
+import {View, StyleSheet, Text, Constants} from 'react-native';
 
 const AppPlaying = (props) => {
   return (
-    <WebView source={{ uri: "https://youtube.com/watch?v=q2PWupjNQ4g" }} />
+    <View>
+      <Text>not ready yet</Text>
+    </View>
   );
 };
 
@@ -14,11 +15,11 @@ const styles = StyleSheet.create({
     height: 300,
   },
   container: {
-    backgroundColor: "black",
+    backgroundColor: 'black',
     flex: 1,
   },
   text: {
-    color: "white",
+    color: 'white',
   },
 });
 

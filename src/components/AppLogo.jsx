@@ -1,6 +1,6 @@
-import React from "react";
-import { StyleSheet, Text, SafeAreaView } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React from 'react';
+import {StyleSheet, Text, SafeAreaView} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Logo = (props) => {
   return (
@@ -19,17 +19,17 @@ const Logo = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#000",
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#000',
   },
   logo: {
     fontSize: 23,
-    color: "#5ee643",
-    fontFamily: "Courier",
+    color: '#5ee643',
+    fontFamily: 'Courier',
   },
   nestedLogo: {
-    color: "#889efc",
+    color: '#889efc',
   },
 });
 
