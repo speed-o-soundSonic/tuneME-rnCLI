@@ -1,18 +1,30 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet, Text, Constants} from 'react-native';
+import YouTube from 'react-native-youtube';
+
+import SongsContext from '../contexts/songsContext';
 
 const AppPlaying = (props) => {
-  return (
-    <View>
-      <Text>not ready yet</Text>
-    </View>
-  );
+  const {videos, index} = useContext(SongsContext);
+
+  if (videos.length) {
+    return (
+      <YouTube
+        videoId={videos[index].id.videoId}
+        play
+        style={styles.backgroundVideo}
+      />
+    );
+  }
+
+  return null;
 };
 
 const styles = StyleSheet.create({
   backgroundVideo: {
-    width: 300,
+    width: '100%',
     height: 300,
+    flex: 1,
   },
   container: {
     backgroundColor: 'black',

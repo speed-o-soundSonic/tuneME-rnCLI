@@ -1,23 +1,14 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text, FlatList } from "react-native";
-import AppSearch from "../components/AppSearch";
-import ListingSongs from "../components/ListingSongs";
+import React, {useContext} from 'react';
+import {StyleSheet, View, Text, FlatList, TouchableOpacity} from 'react-native';
 
-const SearchScreen = (props) => {
-  const [value, setValue] = useState("");
-  const [videos, setVideos] = useState([]);
+import AppSearch from '../components/AppSearch';
+import ListingSongs from '../components/ListingSongs';
+import SongsContext from '../contexts/songsContext';
 
-  const handleFetch = () => {
-    fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=100&q=${value}&type=video&key=AIzaSyBNrPNjDGE4NZstgOdUhPkqhxn7ZssBgPE`
-    )
-      .then((response) => response.json())
-      .then((data) => setVideos(data.items));
-  };
-
-  const handleValue = () => (e) => {
-    setValue(e.nativeEvent.text);
-  };
+const SearchScreen = ({navigation}) => {
+  const {handlePress, videos, handleValue, handleFetch} = useContext(
+    SongsContext,
+  );
 
   return (
     <View style={styles.container}>
@@ -32,14 +23,16 @@ const SearchScreen = (props) => {
       {videos.length !== false && (
         <FlatList
           data={videos}
-          keyExtractor={({ id }) => id.videoId}
-          renderItem={({ item }) => {
+          keyExtractor={({id}) => id.videoId}
+          renderItem={({item, index}) => {
             return (
-              <ListingSongs
-                title={item.snippet.title}
-                description={item.snippet.description}
-                thumbnail={item.snippet.thumbnails.default}
-              />
+              <TouchableOpacity onPress={handlePress(index, navigation)}>
+                <ListingSongs
+                  title={item.snippet.title}
+                  description={item.snippet.description}
+                  thumbnail={item.snippet.thumbnails.default}
+                />
+              </TouchableOpacity>
             );
           }}
         />
