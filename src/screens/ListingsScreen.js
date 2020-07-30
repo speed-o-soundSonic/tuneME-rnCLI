@@ -1,22 +1,23 @@
-import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
-import Screen from "../components/Screen";
-import AppSong from "../components/AppSong";
+import React from 'react';
+import {View, StyleSheet, FlatList} from 'react-native';
+
+import Screen from '../components/Screen';
+import AppSong from '../components/AppSong';
 
 const music = [
   {
-    title: "title 1",
-    artist: "artist 1",
+    title: 'title 1',
+    artist: 'artist 1',
     value: 1,
   },
   {
-    title: "title 2",
-    artist: "artist 2",
+    title: 'title 2',
+    artist: 'artist 2',
     value: 2,
   },
   {
-    title: "title 3",
-    artist: "artist 3",
+    title: 'title 3',
+    artist: 'artist 3',
     value: 3,
   },
 ];
@@ -27,7 +28,7 @@ const ListingsScreen = (props) => {
       <FlatList
         data={music}
         keyExtractor={(song) => song.value.toString()}
-        renderItem={({ item }) => {
+        renderItem={({item}) => {
           return (
             <AppSong
               title={item.title}
@@ -42,10 +43,12 @@ const ListingsScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
   song: {
     marginBottom: 1,
-    borderColor: "black",
+    borderColor: 'black',
     borderBottomWidth: 1,
   },
 });

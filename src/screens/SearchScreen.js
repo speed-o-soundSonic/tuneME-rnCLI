@@ -26,7 +26,8 @@ const SearchScreen = ({navigation}) => {
           keyExtractor={({id}) => id.videoId}
           renderItem={({item, index}) => {
             return (
-              <TouchableOpacity onPress={handlePress(index, navigation)}>
+              <TouchableOpacity
+                onPress={handlePress(index, navigation, item.id.videoId)}>
                 <ListingSongs
                   title={item.snippet.title}
                   description={item.snippet.description}
