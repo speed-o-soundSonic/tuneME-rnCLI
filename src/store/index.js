@@ -4,9 +4,11 @@ import {AsyncStorage} from 'react-native';
 export default () => {
   const [value, setValue] = useState('');
   const [videos, setVideos] = useState([]);
-
+  const [playVideo, setPlayVideo] = useState(null);
+  const [index, setIndex] = useState(null);
   const [cachedVideos, setCachedVideos] = useState({
     path: [],
+    // index: null,
     videoDetails: [],
   });
 
@@ -22,9 +24,13 @@ export default () => {
     );
   };
 
-  const [index, setIndex] = useState(null);
+  const handleChangeVideo = (newVideo) => {
+    setCachedVideos(newVideo);
+  };
 
   const handleFetch = () => {
+    setPlayVideo(null);
+
     fetch(
       `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${value}&regionCode=de&type=video&key=AIzaSyAldwXu66J78b4iCenM5WY0wIxExou0RXo`,
     )
@@ -43,8 +49,9 @@ export default () => {
     setValue(e.nativeEvent.text);
   };
 
-  const handlePress = (index, navigation, item) => () => {
+  const handlePress = (index, navigation, video) => () => {
     setIndex(index);
+    setPlayVideo(video);
     navigation.navigate('Playing');
   };
 
@@ -54,11 +61,14 @@ export default () => {
     videos,
     setVideos,
     cachedVideos,
-    setCachedVideos: handleSetCachedVideos,
+    handleSetCachedVideos,
     index,
     setIndex,
     handleFetch,
     handleValue,
     handlePress,
+    playVideo,
+    setCachedVideos,
+    handleChangeVideo,
   };
 };

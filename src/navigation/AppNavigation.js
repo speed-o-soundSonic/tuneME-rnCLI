@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -6,18 +6,25 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ListingsScreen from '../screens/ListingsScreen';
 import PlayingScreen from '../screens/PlayingScreen';
 import SearchScreen from '../screens/SearchScreen';
+import SongsContext from '../contexts/songsContext';
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigation = (props) => {
+  const {cachedVideos} = useContext(SongsContext);
+
+  // useEffect(() => {
+  //   console.log(cachedVideos);
+  // }, [cachedVideos]);
+
   return (
     <Tab.Navigator
       tabBarOptions={{
         showLabel: false,
         activeTintColor: 'red',
-        inactiveTintColor: 'black',
+        inactiveTintColor: 'white',
         activeBackgroundColor: 'black',
-        inactiveBackgroundColor: 'white',
+        inactiveBackgroundColor: 'black',
       }}>
       <Tab.Screen
         options={{

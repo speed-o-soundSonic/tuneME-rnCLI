@@ -1,6 +1,6 @@
 import RNFetchBlob from 'rn-fetch-blob';
 
-export default (videos, index, cachedVideos, setCachedVideos) => {
+export default (videos, index, cachedVideos, handleSetCachedVideos) => {
   const handleDownload = () => {
     RNFetchBlob.config({
       fileCache: true,
@@ -17,7 +17,7 @@ export default (videos, index, cachedVideos, setCachedVideos) => {
         };
         newCachedVideos.path.push(res.path());
         newCachedVideos.videoDetails.push(videos[index]);
-        setCachedVideos(newCachedVideos);
+        handleSetCachedVideos(newCachedVideos);
       });
   };
 

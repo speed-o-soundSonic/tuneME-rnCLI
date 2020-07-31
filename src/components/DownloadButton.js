@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Screen from './Screen';
 
 const DownloadButton = ({handleDownload}) => {
   const pan = useRef(new Animated.ValueXY()).current;
@@ -22,8 +23,8 @@ const DownloadButton = ({handleDownload}) => {
           pan.y._value < -15
         ) {
           pan.setOffset({
-            x: 375,
-            y: 695,
+            x: 0,
+            y: 0,
           });
         } else
           pan.setOffset({
@@ -57,12 +58,14 @@ const DownloadButton = ({handleDownload}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: -1,
+  },
   button: {
     backgroundColor: 'yellow',
     width: 40,
     position: 'absolute',
-    zIndex: 1,
+    zIndex: 1000,
     borderRadius: 20,
     bottom: 695,
     right: 375,

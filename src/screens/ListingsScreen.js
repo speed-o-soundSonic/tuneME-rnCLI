@@ -1,8 +1,9 @@
-import React from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import React, {useContext} from 'react';
+import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 
 import Screen from '../components/Screen';
 import AppSong from '../components/AppSong';
+import SongsContext from '../contexts/songsContext';
 
 const music = [
   {
@@ -22,19 +23,31 @@ const music = [
   },
 ];
 
-const ListingsScreen = (props) => {
+const ListingsScreen = ({navigation}) => {
+  const {cachedVideos, handleChangeVideo, setIndex} = useContext(SongsContext);
   return (
     <Screen style={styles.container}>
       <FlatList
-        data={music}
-        keyExtractor={(song) => song.value.toString()}
-        renderItem={({item}) => {
+        keyboardShouldPersistTaps="always"
+        data={cachedVideos.videoDetails}
+        keyExtractor={(song) => song.id.videoId.toString()}
+        renderItem={({item, index}) => {
           return (
-            <AppSong
-              title={item.title}
-              artist={item.artist}
-              style={styles.song}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                const newCachedVideos = cachedVideos;
+                newCachedVideos.index = index;
+                setIndex(null);
+                handleChangeVideo(newCachedVideos);
+                navigation.navigate('Playing');
+              }}>
+              <AppSong
+                image={item.snippet.thumbnails.default}
+                title={item.snippet.title}
+                style={styles.song}
+                songStyle={styles.songStyle}
+              />
+            </TouchableOpacity>
           );
         }}
       />
@@ -48,8 +61,17 @@ const styles = StyleSheet.create({
   },
   song: {
     marginBottom: 1,
-    borderColor: 'black',
+    // borderColor: 'white',
+    // borderBottomWidth: 1,
+    borderBottomColor: 'white',
+    flex: -1,
+  },
+  songStyle: {
+    flex: -1,
+    width: '100%',
     borderBottomWidth: 1,
+    color: 'white',
+    padding: 10,
   },
 });
 

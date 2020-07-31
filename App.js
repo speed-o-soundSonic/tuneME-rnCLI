@@ -8,6 +8,7 @@ import useStore from './src/store';
 
 export default function App() {
   const store = useStore();
+
   return (
     <SongsContext.Provider
       value={{
@@ -17,8 +18,12 @@ export default function App() {
         handleFetch: store.handleFetch,
         index: store.index,
         handlePress: store.handlePress,
+        handleSetCachedVideos: store.handleSetCachedVideos,
         cachedVideos: store.cachedVideos,
         setCachedVideos: store.setCachedVideos,
+        playVideo: store.playVideo,
+        setIndex: store.setIndex,
+        handleChangeVideo: store.handleChangeVideo,
       }}>
       <Logo />
       <NavigationContainer>

@@ -22,6 +22,7 @@ const SearchScreen = ({navigation}) => {
       />
       {videos.length !== false && (
         <FlatList
+          keyboardShouldPersistTaps="always"
           data={videos}
           keyExtractor={({id}) => id.videoId}
           renderItem={({item, index}) => {
