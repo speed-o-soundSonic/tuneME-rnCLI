@@ -6,8 +6,9 @@ import useVideo from '../hooks/useVideo';
 import SongsContext from '../contexts/songsContext';
 import Video from 'react-native-video';
 import DownloadButton from '../components/DownloadButton';
+import {useIsFocused} from '@react-navigation/native';
 
-const PlayingScreen = (props) => {
+const PlayingScreen = ({navigation}) => {
   const {
     videos,
     index,
@@ -15,6 +16,16 @@ const PlayingScreen = (props) => {
     handleSetCachedVideos,
     playVideo,
   } = useContext(SongsContext);
+
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('focus', () => {
+  //     console.log('yay');
+  //   });
+
+  //   return unsubscribe;
+  // }, [navigation]);
+
+  const isFocused = useIsFocused();
 
   let path = cachedVideos.path[cachedVideos.index];
 
@@ -37,14 +48,18 @@ const PlayingScreen = (props) => {
     );
   }
 
-  return (
-    <Video
-      key={path}
-      source={{uri: path}}
-      style={styles.backgroundVideo}
-      controls
-    />
-  );
+  if (isFocused || !isFocused) {
+    return (
+      <Video
+        key={path}
+        source={{uri: path}}
+        style={styles.backgroundVideo}
+        controls
+      />
+    );
+  } else {
+    return null;
+  }
 };
 
 const styles = StyleSheet.create({

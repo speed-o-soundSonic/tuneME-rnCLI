@@ -25,6 +25,7 @@ const music = [
 
 const ListingsScreen = ({navigation}) => {
   const {cachedVideos, handleChangeVideo, setIndex} = useContext(SongsContext);
+
   return (
     <Screen style={styles.container}>
       <FlatList
