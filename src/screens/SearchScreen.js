@@ -1,9 +1,10 @@
 import React, {useContext} from 'react';
-import {StyleSheet, View, Text, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, FlatList, TouchableOpacity} from 'react-native';
 
 import AppSearch from '../components/AppSearch';
 import ListingSongs from '../components/ListingSongs';
 import SongsContext from '../contexts/songsContext';
+import colors from '../config/colors';
 
 const SearchScreen = ({navigation}) => {
   const {handlePress, videos, handleValue, handleFetch} = useContext(
@@ -19,6 +20,8 @@ const SearchScreen = ({navigation}) => {
         autoCompleteType="off"
         autoCapitalize="none"
         autoCorrect={false}
+        placeholder="Serach..."
+        placeholderTextColor={colors.medium}
       />
       {videos.length !== false && (
         <FlatList
@@ -31,8 +34,9 @@ const SearchScreen = ({navigation}) => {
                 onPress={handlePress(index, navigation, item.id.videoId)}>
                 <ListingSongs
                   title={item.snippet.title}
-                  description={item.snippet.description}
                   thumbnail={item.snippet.thumbnails.default}
+                  style={styles.song}
+                  songStyle={styles.songStyle}
                 />
               </TouchableOpacity>
             );
@@ -45,11 +49,24 @@ const SearchScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   appSearch: {
-    marginTop: 10,
+    backgroundColor: colors.dark,
+    width: '80%',
+    alignSelf: 'center',
+    marginBottom: 20,
   },
   container: {
-    padding: 10,
     flex: 1,
+    backgroundColor: colors.black,
+  },
+  song: {
+    borderBottomColor: colors.medium,
+    borderBottomWidth: 1,
+    flex: -1,
+  },
+  songStyle: {
+    flex: -1,
+    width: '100%',
+    padding: 10,
   },
 });
 

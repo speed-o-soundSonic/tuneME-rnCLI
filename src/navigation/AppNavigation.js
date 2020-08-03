@@ -7,6 +7,7 @@ import ListingsScreen from '../screens/ListingsScreen';
 import PlayingScreen from '../screens/PlayingScreen';
 import SearchScreen from '../screens/SearchScreen';
 import SongsContext from '../contexts/songsContext';
+import colors from '../config/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,7 +22,7 @@ const AppNavigation = (props) => {
     <Tab.Navigator
       tabBarOptions={{
         showLabel: false,
-        activeTintColor: 'red',
+        activeTintColor: colors.logo,
         inactiveTintColor: 'white',
         activeBackgroundColor: 'black',
         inactiveBackgroundColor: 'black',
@@ -37,9 +38,9 @@ const AppNavigation = (props) => {
       />
       <Tab.Screen
         options={{
-          tabBarIcon: ({color, size}) => {
-            return <Ionicons name="md-play" color={color} size={size} />;
-          },
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="md-play" color={color} size={size} />
+          ),
         }}
         name="Playing"
         component={PlayingScreen}

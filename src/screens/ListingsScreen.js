@@ -1,30 +1,34 @@
 import React, {useContext} from 'react';
-import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, FlatList, TouchableHighlight} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import RNFetchBlob from 'rn-fetch-blob';
 
 import Screen from '../components/Screen';
 import AppSong from '../components/AppSong';
 import SongsContext from '../contexts/songsContext';
-
-const music = [
-  {
-    title: 'title 1',
-    artist: 'artist 1',
-    value: 1,
-  },
-  {
-    title: 'title 2',
-    artist: 'artist 2',
-    value: 2,
-  },
-  {
-    title: 'title 3',
-    artist: 'artist 3',
-    value: 3,
-  },
-];
+import DeleteVideo from '../components/DeleteVideo';
+import colors from '../config/colors';
 
 const ListingsScreen = ({navigation}) => {
-  const {cachedVideos, handleChangeVideo, setIndex} = useContext(SongsContext);
+  const {
+    cachedVideos,
+    handleSetCachedVideos,
+    handleChangeVideo,
+    setIndex,
+  } = useContext(SongsContext);
+
+  const handleDeleteVideo = (index) => async () => {
+    const keys = await AsyncStorage.getItem('videoData').then((videoData) =>
+      JSON.parse(videoData),
+    );
+
+    const path = keys.path.splice(index, 1);
+    keys.videoDetails.splice(index, 1);
+    await AsyncStorage.removeItem('videoData');
+    handleSetCachedVideos(keys);
+
+    RNFetchBlob.fs.unlink(path.join(''));
+  };
 
   return (
     <Screen style={styles.container}>
@@ -34,7 +38,7 @@ const ListingsScreen = ({navigation}) => {
         keyExtractor={(song) => song.id.videoId.toString()}
         renderItem={({item, index}) => {
           return (
-            <TouchableOpacity
+            <TouchableHighlight
               onPress={() => {
                 const newCachedVideos = cachedVideos;
                 newCachedVideos.index = index;
@@ -47,8 +51,11 @@ const ListingsScreen = ({navigation}) => {
                 title={item.snippet.title}
                 style={styles.song}
                 songStyle={styles.songStyle}
+                renderRightActions={() => (
+                  <DeleteVideo onPress={handleDeleteVideo(index)} />
+                )}
               />
-            </TouchableOpacity>
+            </TouchableHighlight>
           );
         }}
       />
@@ -59,19 +66,16 @@ const ListingsScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.black,
   },
   song: {
-    marginBottom: 1,
-    // borderColor: 'white',
-    // borderBottomWidth: 1,
-    borderBottomColor: 'white',
     flex: -1,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.medium,
   },
   songStyle: {
     flex: -1,
     width: '100%',
-    borderBottomWidth: 1,
-    color: 'white',
     padding: 10,
   },
 });

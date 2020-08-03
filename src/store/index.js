@@ -1,14 +1,14 @@
 import {useState, useEffect} from 'react';
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default () => {
   const [value, setValue] = useState('');
   const [videos, setVideos] = useState([]);
   const [playVideo, setPlayVideo] = useState(null);
   const [index, setIndex] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [cachedVideos, setCachedVideos] = useState({
     path: [],
-    // index: null,
     videoDetails: [],
   });
 
@@ -28,11 +28,11 @@ export default () => {
     setCachedVideos(newVideo);
   };
 
-  const handleFetch = () => {
+  const handleFetch = async () => {
     setPlayVideo(null);
 
-    fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${value}&regionCode=de&type=video&key=AIzaSyAldwXu66J78b4iCenM5WY0wIxExou0RXo`,
+    await fetch(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${value}&regionCode=de&type=video&key=AIzaSyBNrPNjDGE4NZstgOdUhPkqhxn7ZssBgPE`,
     )
       .then((response) => {
         if (response.ok) return response.json();
@@ -70,5 +70,7 @@ export default () => {
     playVideo,
     setCachedVideos,
     handleChangeVideo,
+    isLoading,
+    setIsLoading,
   };
 };

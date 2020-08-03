@@ -2,13 +2,15 @@ import React from 'react';
 import {StyleSheet, Text, Image, View} from 'react-native';
 import Screen from './Screen';
 
-const ListingSongs = ({title, description, thumbnail}) => {
+import style from '../config/styles';
+import colors from '../config/colors';
+
+const ListingSongs = ({title, thumbnail, style, songStyle}) => {
   return (
-    <Screen style={styles.container}>
+    <Screen style={[styles.container, style]}>
       <Image source={{uri: thumbnail.url}} style={styles.image} />
-      <View style={styles.detailsContainer}>
-        <Text>{title}</Text>
-        <Text>{description}</Text>
+      <View style={[styles.detailsContainer, songStyle]}>
+        <Text style={styles.text}>{title}</Text>
       </View>
     </Screen>
   );
@@ -17,17 +19,14 @@ const ListingSongs = ({title, description, thumbnail}) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: 'yellow',
-    marginBottom: 10,
+    backgroundColor: colors.black,
   },
-  detailsContainer: {
-    flexDirection: 'column',
-    backgroundColor: 'red',
-  },
+  detailsContainer: {},
   image: {
-    width: 90,
-    height: 120,
+    width: 120,
+    height: 90,
   },
+  text: style.text,
 });
 
 export default ListingSongs;

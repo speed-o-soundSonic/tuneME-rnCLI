@@ -24,6 +24,8 @@ export default function App() {
         playVideo: store.playVideo,
         setIndex: store.setIndex,
         handleChangeVideo: store.handleChangeVideo,
+        isLoading: store.isLoading,
+        setIsLoading: store.setIsLoading,
       }}>
       <Logo />
       <NavigationContainer>
