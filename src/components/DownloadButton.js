@@ -1,4 +1,4 @@
-import React, {useRef, useContext} from 'react';
+import React, {useRef, useContext, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -12,10 +12,10 @@ import Lottie from 'lottie-react-native';
 
 import Screen from './Screen';
 import SongsContext from '../contexts/songsContext';
+import colors from '../config/colors';
 
 const DownloadButton = ({handleDownload, style}) => {
-  const {isLoading} = useContext(SongsContext);
-  console.log(isLoading);
+  const {isLoading, downloaded, setDownloaded} = useContext(SongsContext);
   const pan = useRef(new Animated.ValueXY()).current;
   const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -50,11 +50,15 @@ const DownloadButton = ({handleDownload, style}) => {
 
   return (
     <Animated.View
-      style={[
-        styles.container,
-        style,
-        {transform: [{translateX: pan.x}, {translateY: pan.y}]},
-      ]}
+      style={
+        !downloaded
+          ? [style, {transform: [{translateX: pan.x}, {translateY: pan.y}]}]
+          : [
+              style,
+              styles.container,
+              {transform: [{translateX: pan.x}, {translateY: pan.y}]},
+            ]
+      }
       {...panResponder.panHandlers}>
       <AnimatedTouchable onPress={handleDownload}>
         <View hitSlop={{top: 50, bottom: 50, left: 50, right: 50}}>
@@ -64,6 +68,15 @@ const DownloadButton = ({handleDownload, style}) => {
               loop={false}
               source={require('../assets/animations/downloading.json')}
               style={{width: 75}}
+              onAnimationFinish={() => setDownloaded(true)}
+            />
+          ) : downloaded === true ? (
+            <Lottie
+              style={{width: 75}}
+              onAnimationFinish={() => setDownloaded(false)}
+              autoPlay
+              loop={false}
+              source={require('../assets/animations/downloadDone.json')}
             />
           ) : (
             <MaterialCommunityIcons name="download-circle" size={50} />
@@ -76,8 +89,16 @@ const DownloadButton = ({handleDownload, style}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: -1,
-    position: 'relative',
+    backgroundColor: colors.black,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 1000,
+    borderRadius: 25,
+    top: '10%',
+    right: '2%',
   },
 });
 

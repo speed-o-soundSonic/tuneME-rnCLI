@@ -1,8 +1,8 @@
 import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 
 import Logo from './src/components/AppLogo';
 import AppNavigation from './src/navigation/AppNavigation';
-import {NavigationContainer} from '@react-navigation/native';
 import SongsContext from './src/contexts/songsContext';
 import useStore from './src/store';
 
@@ -26,6 +26,8 @@ export default function App() {
         handleChangeVideo: store.handleChangeVideo,
         isLoading: store.isLoading,
         setIsLoading: store.setIsLoading,
+        downloaded: store.downloaded,
+        setDownloaded: store.setDownloaded,
       }}>
       <Logo />
       <NavigationContainer>

@@ -17,6 +17,8 @@ const PlayingScreen = ({navigation}) => {
     handleSetCachedVideos,
     playVideo,
     setIsLoading,
+    isLoading,
+    downloaded,
   } = useContext(SongsContext);
 
   const isFocused = useIsFocused();

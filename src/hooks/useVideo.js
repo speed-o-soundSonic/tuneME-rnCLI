@@ -8,11 +8,12 @@ export default (
   handleSetCachedVideos,
   setIsLoading,
 ) => {
-  const handleDownload = () => {
+  const handleDownload = async () => {
+    const reg = new RegExp(/(?<=Application\/).*(?=\/Documents)/);
+    const newPath = RNFetchBlob.fs.dirs.DocumentDir.replace(reg, 'myVideos');
     setIsLoading(true);
-    RNFetchBlob.config({
-      path:
-        RNFetchBlob.fs.dirs.DocumentDir + `/${videos[index].id.videoId}.mp4`,
+    await RNFetchBlob.config({
+      path: newPath,
       fileCache: true,
     })
       .fetch(

@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import {View, StyleSheet, FlatList, TouchableHighlight} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import RNFetchBlob from 'rn-fetch-blob';
+import * as FileSystem from 'react-native-unimodules';
 
 import Screen from '../components/Screen';
 import AppSong from '../components/AppSong';
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   song: {
     flex: -1,
     borderBottomWidth: 1,
-    borderBottomColor: colors.medium,
+    borderBottomColor: colors.black,
   },
   songStyle: {
     flex: -1,

@@ -14,10 +14,6 @@ const Tab = createBottomTabNavigator();
 const AppNavigation = (props) => {
   const {cachedVideos} = useContext(SongsContext);
 
-  // useEffect(() => {
-  //   console.log(cachedVideos);
-  // }, [cachedVideos]);
-
   return (
     <Tab.Navigator
       tabBarOptions={{

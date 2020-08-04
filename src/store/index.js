@@ -7,6 +7,7 @@ export default () => {
   const [playVideo, setPlayVideo] = useState(null);
   const [index, setIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [downloaded, setDownloaded] = useState(false);
   const [cachedVideos, setCachedVideos] = useState({
     path: [],
     videoDetails: [],
@@ -72,5 +73,7 @@ export default () => {
     handleChangeVideo,
     isLoading,
     setIsLoading,
+    downloaded,
+    setDownloaded,
   };
 };

@@ -1,24 +1,25 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, SafeAreaView, Switch, View} from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Switch,
+  View,
+  Image,
+} from 'react-native';
 import colors from '../config/colors';
 
 const Logo = (props) => {
   const [isEnabled, setIsEnabled] = useState(true);
-  console.log(isEnabled);
   const toggleSwitch = () => setIsEnabled((prevState) => !prevState);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.detailsContainer}>
-        <MaterialCommunityIcons
-          name="music-accidental-flat"
-          size={35}
-          color={colors.logo}
+        <Image
+          source={require('../assets/logo.png')}
+          style={{width: 200, height: 40}}
         />
-        <Text style={styles.logo}>
-          tune<Text style={styles.nestedLogo}>ME</Text>
-        </Text>
       </View>
     </SafeAreaView>
   );
@@ -34,6 +35,8 @@ const styles = StyleSheet.create({
   detailsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingLeft: 10,
+    paddingTop: 20,
   },
   logo: {
     fontSize: 23,
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Courier',
   },
   nestedLogo: {
-    color: colors.white,
+    color: '#892c27',
   },
 });
 
