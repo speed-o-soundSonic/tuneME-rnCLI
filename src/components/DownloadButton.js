@@ -14,11 +14,14 @@ import Screen from './Screen';
 import SongsContext from '../contexts/songsContext';
 
 const DownloadButton = ({handleDownload, style}) => {
-  const {isLoading, downloaded, setDownloaded, colors} = useContext(
+  const {isLoading, downloaded, setDownloaded, isEnabled} = useContext(
     SongsContext,
   );
   const pan = useRef(new Animated.ValueXY()).current;
   const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+  const downloading = !isEnabled
+    ? require('../assets/animations/downloading.json')
+    : require('../assets/animations/downloadingRed.json');
 
   const panResponder = useRef(
     PanResponder.create({
@@ -67,7 +70,7 @@ const DownloadButton = ({handleDownload, style}) => {
             <Lottie
               autoPlay
               loop={false}
-              source={require('../assets/animations/downloading.json')}
+              source={downloading}
               style={{width: 75}}
               onAnimationFinish={() => setDownloaded(true)}
             />
