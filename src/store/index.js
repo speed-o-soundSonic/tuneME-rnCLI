@@ -9,6 +9,7 @@ export default () => {
   const [isEnabled, setIsEnabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [firstFetchData, setFirstFetchData] = useState([]);
   const [cachedVideos, setCachedVideos] = useState({
     path: [],
     videoDetails: [],
@@ -19,6 +20,10 @@ export default () => {
       if (videoData) setCachedVideos(JSON.parse(videoData));
     });
   }, []);
+
+  useEffect(() => {
+    handleSecondFetch();
+  }, [firstFetchData]);
 
   const toggleSwitch = () => setIsEnabled((prevState) => !prevState);
 
@@ -36,19 +41,41 @@ export default () => {
     setPlayVideo(null);
 
     await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${value}&regionCode=de&type=video&key=AIzaSyBNrPNjDGE4NZstgOdUhPkqhxn7ZssBgPE`,
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${value}&regionCode=de&type=video&key=AIzaSyDGal0YABa7HH1mnTQoJWxTt_OyD1aby3o`,
     )
       .then((response) => {
         if (response.ok) return response.json();
       })
       .then((data) => {
         if (data) {
-          if (data) setVideos(data.items);
+          setFirstFetchData(data.items);
         }
       })
       .catch((err) => console.log({error: err}));
   };
 
+  const handleSecondFetch = async () => {
+    const result = [];
+    for (let video = 0; video < firstFetchData.length; video++) {
+      await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${firstFetchData[video].id.videoId}&key=AIzaSyDGal0YABa7HH1mnTQoJWxTt_OyD1aby3o`,
+      )
+        .then((response) => {
+          if (response.ok) return response.json();
+        })
+        .then((data) => {
+          if (data) {
+            let newVideoData = firstFetchData[video];
+            newVideoData = data.items;
+            result.push(newVideoData);
+            if (video === firstFetchData.length) setVideos(...result);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+  console.log('firstFetchData', firstFetchData);
+  console.log('videos', videos);
   const handleValue = () => (e) => {
     setValue(e.nativeEvent.text);
   };

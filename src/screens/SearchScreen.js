@@ -26,7 +26,7 @@ const SearchScreen = ({navigation}) => {
         <FlatList
           keyboardShouldPersistTaps="always"
           data={videos}
-          keyExtractor={({id}) => id.videoId}
+          keyExtractor={(item) => item.id.videoId}
           renderItem={({item, index}) => {
             return (
               <TouchableOpacity
@@ -34,6 +34,8 @@ const SearchScreen = ({navigation}) => {
                 <ListingSongs
                   title={item.snippet.title}
                   thumbnail={item.snippet.thumbnails.default}
+                  contentDetails={item.contentDetails}
+                  statistics={item.statistics}
                   style={[styles.song, {backgroundColor: colors.medium}]}
                   songStyle={styles.songStyle}
                 />
@@ -62,7 +64,10 @@ const styles = StyleSheet.create({
   songStyle: {
     flex: -1,
     width: '100%',
-    padding: 10,
+    paddingTop: 0,
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingBottom: 9,
   },
 });
 
