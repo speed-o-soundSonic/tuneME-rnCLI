@@ -7,7 +7,7 @@ const DeleteVideo = ({onPress}) => {
   const {colors} = useContext(SongsContext);
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <View style={[styles.container, {backgroundColor: colors.logo}]}>
+      <View style={[styles.container]}>
         <MaterialCommunityIcons name="trash-can" size={35} color="#fff" />
       </View>
     </TouchableWithoutFeedback>
@@ -16,7 +16,7 @@ const DeleteVideo = ({onPress}) => {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: '#ff5252',
+    backgroundColor: '#c40027',
     width: '20%',
     height: '100%',
     justifyContent: 'center',

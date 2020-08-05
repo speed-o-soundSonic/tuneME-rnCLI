@@ -26,11 +26,11 @@ const SearchScreen = ({navigation}) => {
         <FlatList
           keyboardShouldPersistTaps="always"
           data={videos}
-          keyExtractor={(item) => item.id.videoId}
+          keyExtractor={({id}) => id.toString()}
           renderItem={({item, index}) => {
             return (
               <TouchableOpacity
-                onPress={handlePress(index, navigation, item.id.videoId)}>
+                onPress={handlePress(index, navigation, item.id)}>
                 <ListingSongs
                   title={item.snippet.title}
                   thumbnail={item.snippet.thumbnails.default}
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   songStyle: {
     flex: -1,
     width: '100%',
-    paddingTop: 0,
+    paddingTop: 4,
     paddingLeft: 12,
     paddingRight: 12,
     paddingBottom: 9,

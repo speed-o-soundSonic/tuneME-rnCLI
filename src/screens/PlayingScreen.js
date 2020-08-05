@@ -41,7 +41,7 @@ const PlayingScreen = ({navigation}) => {
               setIsLoading,
             ).handleDownload
           }
-          style={[styles.button, {backgroundColor: colors.primary}]}
+          style={[styles.button, {backgroundColor: colors.button}]}
         />
       </View>
     );

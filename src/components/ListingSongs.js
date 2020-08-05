@@ -1,10 +1,11 @@
 import React, {useContext} from 'react';
 import {StyleSheet, Text, Image, View} from 'react-native';
-import Screen from './Screen';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import Screen from './Screen';
 import SongsContext from '../contexts/songsContext';
 import style from '../config/styles';
-import {Constants} from 'react-native-unimodules';
+import timeApi from '../utils/time';
 
 const ListingSongs = ({
   title,
@@ -15,8 +16,8 @@ const ListingSongs = ({
   statistics,
 }) => {
   const {colors} = useContext(SongsContext);
-  const reg = new RegExp(/(\dM*)/g);
-  const time = contentDetails.duration.match(reg).join('').replace('M', ':');
+
+  const time = timeApi(contentDetails);
   return (
     <Screen
       style={[
@@ -26,19 +27,23 @@ const ListingSongs = ({
       ]}>
       <View style={styles.image}>
         <Image source={{uri: thumbnail.url}} style={styles.image} />
-        <Text style={[styles.duration]}>{time}</Text>
+        <Text style={[styles.duration, {width: time.length > 5 ? 50 : 35}]}>
+          {time}
+        </Text>
       </View>
       <View style={[styles.detailsContainer, songStyle]}>
         <Text style={[styles.text, {color: colors.white}]}>{title}</Text>
         <View style={styles.detailsContainerWrapper}>
           <Text style={[styles.detailsContainer, {color: colors.white}]}>
-            Views {statistics.viewCount}
+            <Text style={{fontWeight: '600'}}>Views </Text>
+            {statistics.viewCount}
           </Text>
           <Text style={[styles.detailsContainer, {color: colors.white}]}>
-            Likes: {statistics.likeCount}
+            {<Icon name="thumb-up-outline" size={15} />} {statistics.likeCount}
           </Text>
           <Text style={[styles.detailsContainer, {color: colors.white}]}>
-            Dislikes: {statistics.dislikeCount}
+            {<Icon name="thumb-down-outline" size={15} />}{' '}
+            {statistics.dislikeCount}
           </Text>
         </View>
       </View>
@@ -57,6 +62,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 90,
     position: 'relative',
+    alignSelf: 'center',
   },
   text: style.text,
 });

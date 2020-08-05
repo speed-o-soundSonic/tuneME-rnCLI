@@ -6,7 +6,7 @@ export default () => {
   const [videos, setVideos] = useState([]);
   const [playVideo, setPlayVideo] = useState(null);
   const [index, setIndex] = useState(null);
-  const [isEnabled, setIsEnabled] = useState(true);
+  const [isEnabled, setIsEnabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
   const [firstFetchData, setFirstFetchData] = useState([]);
@@ -41,10 +41,11 @@ export default () => {
     setPlayVideo(null);
 
     await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&q=${value}&regionCode=de&type=video&key=AIzaSyDGal0YABa7HH1mnTQoJWxTt_OyD1aby3o`,
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&q=${value}&regionCode=de&type=video&key=AIzaSyCKxYOWK1sPa0CwrD-jnVtXrU61RtPOAGw`,
     )
       .then((response) => {
         if (response.ok) return response.json();
+        console.warn({error: 'An error occurred', message: response});
       })
       .then((data) => {
         if (data) {
@@ -58,7 +59,7 @@ export default () => {
     const result = [];
     for (let video = 0; video < firstFetchData.length; video++) {
       await fetch(
-        `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${firstFetchData[video].id.videoId}&key=AIzaSyDGal0YABa7HH1mnTQoJWxTt_OyD1aby3o`,
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${firstFetchData[video].id.videoId}&key=AIzaSyCKxYOWK1sPa0CwrD-jnVtXrU61RtPOAGw`,
       )
         .then((response) => {
           if (response.ok) return response.json();
@@ -74,8 +75,7 @@ export default () => {
         .catch((err) => console.log(err));
     }
   };
-  console.log('firstFetchData', firstFetchData);
-  console.log('videos', videos);
+
   const handleValue = () => (e) => {
     setValue(e.nativeEvent.text);
   };
@@ -98,6 +98,7 @@ export default () => {
       white: isEnabled ? '#fff' : '#000',
       searchField: isEnabled ? '#020' : 'hsl(0, 0%, 92%)',
       searchIcon: isEnabled ? '#010' : 'hsl(0, 0%, 89%)',
+      button: isEnabled ? '#c40027' : '#65b854',
     };
   };
 

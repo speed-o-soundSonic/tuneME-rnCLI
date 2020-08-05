@@ -35,7 +35,7 @@ const ListingsScreen = ({navigation}) => {
       <FlatList
         keyboardShouldPersistTaps="always"
         data={cachedVideos.videoDetails}
-        keyExtractor={(song) => song.id.videoId.toString()}
+        keyExtractor={(song) => song.id.toString()}
         renderItem={({item, index}) => {
           return (
             <TouchableHighlight
@@ -56,6 +56,8 @@ const ListingsScreen = ({navigation}) => {
                     borderBottomColor: colors.medium,
                   },
                 ]}
+                contentDetails={item.contentDetails}
+                statistics={item.statistics}
                 songStyle={[styles.songStyle, {color: colors.white}]}
                 renderRightActions={() => (
                   <DeleteVideo onPress={handleDeleteVideo(index)} />
@@ -80,7 +82,10 @@ const styles = StyleSheet.create({
   songStyle: {
     flex: -1,
     width: '100%',
-    padding: 10,
+    paddingTop: 4,
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingBottom: 9,
   },
 });
 

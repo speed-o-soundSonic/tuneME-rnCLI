@@ -16,6 +16,7 @@ export default {
     },
     textShadowRadius: 0.1,
     letterSpacing: 0.7,
+    padding: 2,
   },
   duration: {
     fontSize: 12,
@@ -24,7 +25,7 @@ export default {
     bottom: 3,
     right: 0,
     color: '#fff',
-    backgroundColor: '#000',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     fontWeight: '300',
     textShadowColor: '#fff',
     textShadowOffset: {
@@ -32,8 +33,10 @@ export default {
       height: 0.2,
     },
     textShadowRadius: 0.8,
-    width: 35,
+    width: 50,
     height: 15,
     textAlign: 'center',
+    borderRadius: 3,
+    overflow: 'hidden',
   },
 };

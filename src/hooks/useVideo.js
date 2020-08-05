@@ -9,7 +9,7 @@ export default (
   setIsLoading,
 ) => {
   const handleDownload = async () => {
-    // const reg = new RegExp(/(?<=Application\/).*(?=\/Documents)/);
+    // const reg = new RegExp(/(?<=Application\/).*(?=\/Documents)/); ios does not support lookaheads and lookbehinds (not sure of android)
     const reg = new RegExp(/Application\/.*\/Documents/);
     const newPath = RNFetchBlob.fs.dirs.DocumentDir.replace(
       reg,
@@ -17,12 +17,12 @@ export default (
     );
     setIsLoading(true);
     await RNFetchBlob.config({
-      path: newPath + `/${videos[index].id.videoId}.mp4`,
+      path: newPath + `/${videos[index].id}.mp4`,
       fileCache: true,
     })
       .fetch(
         'GET',
-        `https://ytdownloadrapp.herokuapp.com/download?URL=https://www.youtube.com/watch?v=${videos[index].id.videoId}`,
+        `https://ytdownloadrapp.herokuapp.com/download?URL=https://www.youtube.com/watch?v=${videos[index].id}`,
       )
       .then((res) => {
         setIsLoading(false);
