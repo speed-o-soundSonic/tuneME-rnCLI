@@ -41,7 +41,7 @@ export default () => {
     setPlayVideo(null);
 
     await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${value}&regionCode=de&type=video&key=AIzaSyDGal0YABa7HH1mnTQoJWxTt_OyD1aby3o`,
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&q=${value}&regionCode=de&type=video&key=AIzaSyDGal0YABa7HH1mnTQoJWxTt_OyD1aby3o`,
     )
       .then((response) => {
         if (response.ok) return response.json();
@@ -68,7 +68,7 @@ export default () => {
             let newVideoData = firstFetchData[video];
             newVideoData = data.items;
             result.push(newVideoData);
-            if (video === firstFetchData.length) setVideos(...result);
+            if (video === firstFetchData.length - 1) setVideos(result.flat());
           }
         })
         .catch((err) => console.log(err));
