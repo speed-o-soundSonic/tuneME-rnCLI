@@ -6,6 +6,7 @@ export default () => {
   const [videos, setVideos] = useState([]);
   const [playVideo, setPlayVideo] = useState(null);
   const [index, setIndex] = useState(null);
+  const [isEnabled, setIsEnabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
   const [cachedVideos, setCachedVideos] = useState({
@@ -18,6 +19,8 @@ export default () => {
       if (videoData) setCachedVideos(JSON.parse(videoData));
     });
   }, []);
+
+  const toggleSwitch = () => setIsEnabled((prevState) => !prevState);
 
   const handleSetCachedVideos = (videoData) => {
     AsyncStorage.setItem('videoData', JSON.stringify(videoData)).then(() =>
@@ -40,7 +43,7 @@ export default () => {
       })
       .then((data) => {
         if (data) {
-          setVideos(data.items);
+          if (data) setVideos(data.items);
         }
       })
       .catch((err) => console.log({error: err}));
@@ -54,6 +57,21 @@ export default () => {
     setIndex(index);
     setPlayVideo(video);
     navigation.navigate('Playing');
+  };
+
+  const colors = () => {
+    return {
+      primary: isEnabled ? '#65b854' : '#c40027',
+      secondary: isEnabled ? '#889efc' : '#776103',
+      black: isEnabled ? '#000' : '#fff',
+      dark: isEnabled ? '#2f2f2f' : '#f0f0f0',
+      medium: isEnabled ? '#7e7979' : '#818686',
+      light: isEnabled ? '#f8f4f4' : '#070B0B',
+      logo: isEnabled ? '#c40027' : '#65b854',
+      white: isEnabled ? '#fff' : '#000',
+      searchField: isEnabled ? '#020' : 'hsl(0, 0%, 92%)',
+      searchIcon: isEnabled ? '#010' : 'hsl(0, 0%, 89%)',
+    };
   };
 
   return {
@@ -75,5 +93,9 @@ export default () => {
     setIsLoading,
     downloaded,
     setDownloaded,
+    isEnabled,
+    setIsEnabled,
+    toggleSwitch,
+    colors,
   };
 };

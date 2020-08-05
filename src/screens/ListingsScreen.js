@@ -2,13 +2,11 @@ import React, {useContext} from 'react';
 import {View, StyleSheet, FlatList, TouchableHighlight} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import RNFetchBlob from 'rn-fetch-blob';
-import * as FileSystem from 'react-native-unimodules';
 
 import Screen from '../components/Screen';
 import AppSong from '../components/AppSong';
 import SongsContext from '../contexts/songsContext';
 import DeleteVideo from '../components/DeleteVideo';
-import colors from '../config/colors';
 
 const ListingsScreen = ({navigation}) => {
   const {
@@ -16,6 +14,7 @@ const ListingsScreen = ({navigation}) => {
     handleSetCachedVideos,
     handleChangeVideo,
     setIndex,
+    colors,
   } = useContext(SongsContext);
 
   const handleDeleteVideo = (index) => async () => {
@@ -32,7 +31,7 @@ const ListingsScreen = ({navigation}) => {
   };
 
   return (
-    <Screen style={styles.container}>
+    <Screen style={[styles.container, {backgroundColor: colors.black}]}>
       <FlatList
         keyboardShouldPersistTaps="always"
         data={cachedVideos.videoDetails}
@@ -50,8 +49,14 @@ const ListingsScreen = ({navigation}) => {
               <AppSong
                 image={item.snippet.thumbnails.default}
                 title={item.snippet.title}
-                style={styles.song}
-                songStyle={styles.songStyle}
+                style={[
+                  styles.song,
+                  {
+                    backgroundColor: colors.black,
+                    borderBottomColor: colors.medium,
+                  },
+                ]}
+                songStyle={[styles.songStyle, {color: colors.white}]}
                 renderRightActions={() => (
                   <DeleteVideo onPress={handleDeleteVideo(index)} />
                 )}
@@ -67,12 +72,10 @@ const ListingsScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.black,
   },
   song: {
     flex: -1,
     borderBottomWidth: 1,
-    borderBottomColor: colors.black,
   },
   songStyle: {
     flex: -1,

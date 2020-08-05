@@ -9,11 +9,15 @@ export default (
   setIsLoading,
 ) => {
   const handleDownload = async () => {
-    const reg = new RegExp(/(?<=Application\/).*(?=\/Documents)/);
-    const newPath = RNFetchBlob.fs.dirs.DocumentDir.replace(reg, 'myVideos');
+    // const reg = new RegExp(/(?<=Application\/).*(?=\/Documents)/);
+    const reg = new RegExp(/Application\/.*\/Documents/);
+    const newPath = RNFetchBlob.fs.dirs.DocumentDir.replace(
+      reg,
+      'Application/myVideos/Documents',
+    );
     setIsLoading(true);
     await RNFetchBlob.config({
-      path: newPath,
+      path: newPath + `/${videos[index].id.videoId}.mp4`,
       fileCache: true,
     })
       .fetch(

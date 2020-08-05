@@ -1,16 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet, Text, Image} from 'react-native';
 import Screen from './Screen';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import colors from '../config/colors';
+
+import SongsContext from '../contexts/songsContext';
+import style from '../config/styles';
 
 const AppSong = ({title, image, style, songStyle, renderRightActions}) => {
+  const {colors} = useContext(SongsContext);
   return (
     <Swipeable renderRightActions={renderRightActions}>
-      <Screen style={[styles.container, style]}>
+      <Screen
+        style={[styles.container, style, {backgroundColor: colors.black}]}>
         <Image source={{uri: image.url}} style={styles.image} />
         <View style={styles.detailsContainer} style={songStyle}>
-          <Text style={{color: 'white'}}>{title}</Text>
+          <Text style={[styles.text, {color: colors.white}]}>{title}</Text>
         </View>
       </Screen>
     </Swipeable>
@@ -20,13 +24,13 @@ const AppSong = ({title, image, style, songStyle, renderRightActions}) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: colors.black,
   },
   detailsContainer: {},
   image: {
     width: 120,
     height: 90,
   },
+  text: style.text,
 });
 
 export default AppSong;

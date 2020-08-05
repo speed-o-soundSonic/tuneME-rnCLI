@@ -12,10 +12,11 @@ import Lottie from 'lottie-react-native';
 
 import Screen from './Screen';
 import SongsContext from '../contexts/songsContext';
-import colors from '../config/colors';
 
 const DownloadButton = ({handleDownload, style}) => {
-  const {isLoading, downloaded, setDownloaded} = useContext(SongsContext);
+  const {isLoading, downloaded, setDownloaded, colors} = useContext(
+    SongsContext,
+  );
   const pan = useRef(new Animated.ValueXY()).current;
   const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -89,7 +90,6 @@ const DownloadButton = ({handleDownload, style}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.black,
     width: 50,
     height: 50,
     justifyContent: 'center',
@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     top: '10%',
     right: '2%',
+    backgroundColor: '#000',
   },
 });
 

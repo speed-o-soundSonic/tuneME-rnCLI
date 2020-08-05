@@ -7,8 +7,6 @@ import Video from 'react-native-video';
 import DownloadButton from '../components/DownloadButton';
 import {useIsFocused} from '@react-navigation/native';
 
-import colors from '../config/colors';
-
 const PlayingScreen = ({navigation}) => {
   const {
     videos,
@@ -17,8 +15,7 @@ const PlayingScreen = ({navigation}) => {
     handleSetCachedVideos,
     playVideo,
     setIsLoading,
-    isLoading,
-    downloaded,
+    colors,
   } = useContext(SongsContext);
 
   const isFocused = useIsFocused();
@@ -44,7 +41,7 @@ const PlayingScreen = ({navigation}) => {
               setIsLoading,
             ).handleDownload
           }
-          style={styles.button}
+          style={[styles.button, {backgroundColor: colors.primary}]}
         />
       </View>
     );
@@ -61,7 +58,8 @@ const PlayingScreen = ({navigation}) => {
           playInBackground={true}
         />
       );
-    } else return <View style={styles.empty} />;
+    } else
+      return <View style={[styles.empty, {backgroundColor: colors.black}]} />;
   }
 };
 
@@ -72,7 +70,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
-    backgroundColor: colors.primary,
     width: 50,
     height: 50,
     justifyContent: 'center',
@@ -90,11 +87,10 @@ const styles = StyleSheet.create({
   empty: {
     width: '100%',
     height: '100%',
-    backgroundColor: colors.black,
   },
-  text: {
-    color: colors.white,
-  },
+  // text: {
+  //   color: colors.white,
+  // },
 });
 
 export default PlayingScreen;

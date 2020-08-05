@@ -28,6 +28,10 @@ export default function App() {
         setIsLoading: store.setIsLoading,
         downloaded: store.downloaded,
         setDownloaded: store.setDownloaded,
+        isEnabled: store.isEnabled,
+        setIsEnabled: store.setIsEnabled,
+        toggleSwitch: store.toggleSwitch,
+        colors: store.colors(),
       }}>
       <Logo />
       <NavigationContainer>

@@ -1,40 +1,50 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, TextInput, TouchableHighlight} from 'react-native';
+import React, {useState, useContext} from 'react';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableHighlight,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import style from '../config/styles';
-import colors from '../config/colors';
+import SongsContext from '../contexts/songsContext';
 
 const AppSearch = ({style, onPress, setValue, ...otherProps}) => {
+  const {colors} = useContext(SongsContext);
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, style, {borderColor: colors.searchField}]}>
       <TextInput
-        style={[styles.input, styles.text]}
+        style={[styles.input, styles.text, {color: colors.white}]}
         onChange={setValue()}
         {...otherProps}
       />
-      <TouchableHighlight onPress={onPress}>
-        <View style={styles.icon}>
-          <Ionicons name="md-search" size={20} color="#b00" />
+      <TouchableWithoutFeedback onPress={onPress}>
+        <View
+          style={[
+            styles.icon,
+            {backgroundColor: colors.black, borderColor: colors.searchIcon},
+          ]}>
+          <Ionicons name="md-search" size={20} color={colors.logo} />
         </View>
-      </TouchableHighlight>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.dark,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 24,
-    borderColor: '#020',
+    // borderColor: '#020',
     borderWidth: 1,
+    marginTop: 10,
   },
   icon: {
     marginRight: 10,
-    backgroundColor: colors.black,
     borderRadius: 18,
     height: 35,
     width: 35,

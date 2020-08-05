@@ -7,21 +7,20 @@ import ListingsScreen from '../screens/ListingsScreen';
 import PlayingScreen from '../screens/PlayingScreen';
 import SearchScreen from '../screens/SearchScreen';
 import SongsContext from '../contexts/songsContext';
-import colors from '../config/colors';
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigation = (props) => {
-  const {cachedVideos} = useContext(SongsContext);
+  const {colors} = useContext(SongsContext);
 
   return (
     <Tab.Navigator
       tabBarOptions={{
         showLabel: false,
         activeTintColor: colors.logo,
-        inactiveTintColor: 'white',
-        activeBackgroundColor: 'black',
-        inactiveBackgroundColor: 'black',
+        inactiveTintColor: colors.white,
+        activeBackgroundColor: colors.black,
+        inactiveBackgroundColor: colors.black,
       }}>
       <Tab.Screen
         options={{

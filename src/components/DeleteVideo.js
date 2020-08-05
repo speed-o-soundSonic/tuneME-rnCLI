@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../config/colors';
+import SongsContext from '../contexts/songsContext';
 
 const DeleteVideo = ({onPress}) => {
+  const {colors} = useContext(SongsContext);
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: colors.logo}]}>
         <MaterialCommunityIcons name="trash-can" size={35} color="#fff" />
       </View>
     </TouchableWithoutFeedback>
@@ -16,7 +17,6 @@ const DeleteVideo = ({onPress}) => {
 const styles = StyleSheet.create({
   container: {
     // backgroundColor: '#ff5252',
-    backgroundColor: colors.logo,
     width: '20%',
     height: '100%',
     justifyContent: 'center',

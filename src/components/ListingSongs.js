@@ -1,16 +1,22 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, Text, Image, View} from 'react-native';
 import Screen from './Screen';
 
+import SongsContext from '../contexts/songsContext';
 import style from '../config/styles';
-import colors from '../config/colors';
 
 const ListingSongs = ({title, thumbnail, style, songStyle}) => {
+  const {colors} = useContext(SongsContext);
   return (
-    <Screen style={[styles.container, style]}>
+    <Screen
+      style={[
+        styles.container,
+        style,
+        {backgroundColor: colors.black, borderBottomColor: colors.medium},
+      ]}>
       <Image source={{uri: thumbnail.url}} style={styles.image} />
       <View style={[styles.detailsContainer, songStyle]}>
-        <Text style={styles.text}>{title}</Text>
+        <Text style={[styles.text, {color: colors.white}]}>{title}</Text>
       </View>
     </Screen>
   );
@@ -19,7 +25,6 @@ const ListingSongs = ({title, thumbnail, style, songStyle}) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: colors.black,
   },
   detailsContainer: {},
   image: {

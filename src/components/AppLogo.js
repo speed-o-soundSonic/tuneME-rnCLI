@@ -1,24 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   StyleSheet,
   Text,
   SafeAreaView,
-  Switch,
   View,
   Image,
+  TouchableWithoutFeedback,
 } from 'react-native';
-import colors from '../config/colors';
+import {Switch} from 'react-native-switch';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+import SongsContext from '../contexts/songsContext';
 
 const Logo = (props) => {
-  const [isEnabled, setIsEnabled] = useState(true);
-  const toggleSwitch = () => setIsEnabled((prevState) => !prevState);
+  const {isEnabled, toggleSwitch, colors} = useContext(SongsContext);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, {backgroundColor: colors.black}]}>
       <View style={styles.detailsContainer}>
         <Image
           source={require('../assets/logo.png')}
           style={{width: 200, height: 40}}
+        />
+      </View>
+      <View style={{paddingRight: 20}}>
+        <Switch
+          value={isEnabled}
+          activeText={<Icon name="ios-moon" color={colors.medium} size={20} />}
+          inActiveText={<Icon name="ios-star" color="yellow" size={20} />}
+          onValueChange={toggleSwitch}
+          useNativeDriver={false}
+          backgroundActive={colors.dark}
+          backgroundInactive={colors.dark}
         />
       </View>
     </SafeAreaView>
@@ -30,21 +43,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.black,
   },
   detailsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 10,
-    paddingTop: 20,
-  },
-  logo: {
-    fontSize: 23,
-    color: colors.primary,
-    fontFamily: 'Courier',
-  },
-  nestedLogo: {
-    color: '#892c27',
+    paddingTop: 15,
   },
 });
 
