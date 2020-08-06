@@ -6,6 +6,7 @@ import Screen from './Screen';
 import SongsContext from '../contexts/songsContext';
 import style from '../config/styles';
 import timeApi from '../utils/time';
+import viewsApi from '../utils/views';
 
 const ListingSongs = ({
   title,
@@ -18,6 +19,7 @@ const ListingSongs = ({
   const {colors} = useContext(SongsContext);
 
   const time = timeApi(contentDetails);
+  const views = viewsApi(statistics.viewCount);
   return (
     <Screen
       style={[
@@ -36,7 +38,7 @@ const ListingSongs = ({
         <View style={styles.detailsContainerWrapper}>
           <Text style={[styles.detailsContainer, {color: colors.white}]}>
             <Text style={{fontWeight: '600'}}>Views </Text>
-            {statistics.viewCount}
+            {views}
           </Text>
           <Text style={[styles.detailsContainer, {color: colors.white}]}>
             {<Icon name="thumb-up-outline" size={15} />} {statistics.likeCount}
