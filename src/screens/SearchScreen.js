@@ -19,7 +19,7 @@ const SearchScreen = ({navigation}) => {
         autoCompleteType="off"
         autoCapitalize="none"
         autoCorrect={false}
-        placeholder="Serach..."
+        placeholder="Search..."
         placeholderTextColor={colors.medium}
       />
       {videos.length !== false && (

@@ -41,7 +41,7 @@ export default () => {
     setPlayVideo(null);
 
     await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&q=${value}&regionCode=de&type=video&key=AIzaSyCKxYOWK1sPa0CwrD-jnVtXrU61RtPOAGw`,
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&q=${value}&regionCode=de&type=video&key=AIzaSyBcuAD9a750pX2uK-UNKjKxT0_bAWhikRw`,
     )
       .then((response) => {
         if (response.ok) return response.json();
@@ -59,7 +59,7 @@ export default () => {
     const result = [];
     for (let video = 0; video < firstFetchData.length; video++) {
       await fetch(
-        `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${firstFetchData[video].id.videoId}&key=AIzaSyCKxYOWK1sPa0CwrD-jnVtXrU61RtPOAGw`,
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${firstFetchData[video].id.videoId}&key=AIzaSyBcuAD9a750pX2uK-UNKjKxT0_bAWhikRw`,
       )
         .then((response) => {
           if (response.ok) return response.json();
